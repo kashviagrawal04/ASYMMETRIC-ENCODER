@@ -1,0 +1,30 @@
+baselines done
+[    35s] corrupt=0.0 symmetric  k= 2 mse=0.0344 probe=0.703 probe10=0.679 knn=0.832
+[    69s] corrupt=0.0 symmetric  k= 4 mse=0.0214 probe=0.884 probe10=0.849 knn=0.926
+[   104s] corrupt=0.0 symmetric  k= 8 mse=0.0125 probe=0.939 probe10=0.886 knn=0.962
+[   139s] corrupt=0.0 symmetric  k=16 mse=0.0066 probe=0.950 probe10=0.898 knn=0.971
+[   174s] corrupt=0.0 symmetric  k=32 mse=0.0032 probe=0.966 probe10=0.906 knn=0.975
+[   194s] corrupt=0.0 heavy_enc  k= 2 mse=0.0560 probe=0.539 probe10=0.426 knn=0.564
+[   214s] corrupt=0.0 heavy_enc  k= 4 mse=0.0365 probe=0.812 probe10=0.733 knn=0.836
+[   236s] corrupt=0.0 heavy_enc  k= 8 mse=0.0209 probe=0.916 probe10=0.852 knn=0.927
+[   257s] corrupt=0.0 heavy_enc  k=16 mse=0.0081 probe=0.954 probe10=0.901 knn=0.963
+[   279s] corrupt=0.0 heavy_enc  k=32 mse=0.0027 probe=0.967 probe10=0.908 knn=0.977
+[   298s] corrupt=0.0 heavy_dec  k= 2 mse=0.0428 probe=0.609 probe10=0.589 knn=0.639
+[   318s] corrupt=0.0 heavy_dec  k= 4 mse=0.0247 probe=0.815 probe10=0.792 knn=0.870
+[   338s] corrupt=0.0 heavy_dec  k= 8 mse=0.0129 probe=0.906 probe10=0.865 knn=0.953
+[   359s] corrupt=0.0 heavy_dec  k=16 mse=0.0065 probe=0.958 probe10=0.902 knn=0.972
+[   381s] corrupt=0.0 heavy_dec  k=32 mse=0.0026 probe=0.970 probe10=0.912 knn=0.978
+[   384s] corrupt=0.0 linear_sym k= 2 mse=0.0549 probe=0.552 probe10=0.523 knn=0.560
+[   387s] corrupt=0.0 linear_sym k= 4 mse=0.0401 probe=0.794 probe10=0.756 knn=0.838
+[   391s] corrupt=0.0 linear_sym k= 8 mse=0.0251 probe=0.901 probe10=0.847 knn=0.941
+[   396s] corrupt=0.0 linear_sym k=16 mse=0.0117 probe=0.961 probe10=0.904 knn=0.978
+[   402s] corrupt=0.0 linear_sym k=32 mse=0.0028 probe=0.968 probe10=0.912 knn=0.975
+[   438s] corrupt=0.3 symmetric  k= 8 mse=0.0156 probe=0.933 probe10=0.887 knn=0.944
+[   474s] corrupt=0.3 symmetric  k=16 mse=0.0130 probe=0.956 probe10=0.903 knn=0.953
+[   496s] corrupt=0.3 heavy_enc  k= 8 mse=0.0245 probe=0.914 probe10=0.880 knn=0.922
+[   518s] corrupt=0.3 heavy_enc  k=16 mse=0.0150 probe=0.943 probe10=0.899 knn=0.955
+[   540s] corrupt=0.3 heavy_dec  k= 8 mse=0.0188 probe=0.892 probe10=0.844 knn=0.911
+[   562s] corrupt=0.3 heavy_dec  k=16 mse=0.0144 probe=0.956 probe10=0.888 knn=0.953
+[   567s] corrupt=0.3 linear_sym k= 8 mse=0.0321 probe=0.896 probe10=0.851 knn=0.927
+[   572s] corrupt=0.3 linear_sym k=16 mse=0.0213 probe=0.957 probe10=0.896 knn=0.964
+done in 588s
