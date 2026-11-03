@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Asymmetric auto-encoder latent explorer</title>
+<style>
+:root{--bg:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--line:#e1e0db}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 20px 48px}
+h1{font-size:22px;margin:0 0 4px}p.sub{margin:0 0 18px;color:var(--ink2)}
+.bar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+select,label{font:inherit}select{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
+.grid{display:grid;grid-template-columns:minmax(300px,520px) 1fr;gap:22px;align-items:start}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+canvas#plane{width:100%;aspect-ratio:1;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:crosshair;touch-action:none}
+.card{border:1px solid var(--line);border-radius:8px;padding:14px;background:#fff;margin-bottom:14px}
+.card h2{font-size:13px;margin:0 0 8px;color:var(--ink2);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.imgs{display:flex;gap:18px;flex-wrap:wrap}.imgs figure{margin:0;text-align:center;font-size:12px;color:var(--ink2)}
+canvas.px{width:150px;height:150px;image-rendering:pixelated;border:1px solid var(--line);border-radius:4px;background:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12px;color:var(--ink2);margin-top:8px}.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+#stat{font-size:14px}.warn{color:#b3361f;font-weight:600}.ok{color:#1a7f4e;font-weight:600}
+small{color:var(--ink2)}
+</style></head><body><main>
+<h1>Asymmetric auto-encoder: latent-space explorer</h1>
+<p class="sub">Each model compresses an 8×8 digit into <b>2 numbers</b>. Move the pointer over the plane and the model's <i>decoder</i> paints the digit for that point. Compare how differently the architectures use the plane.</p>
+<div class="bar"><label>Model <select id="model"></select></label>
+<label><input type="checkbox" id="manifold"> show decoded manifold</label>
+<label><input type="checkbox" id="pts" checked> show test digits</label></div>
+<div class="grid"><div><canvas id="plane" width="1040" height="1040"></canvas>
+<div class="legend" id="legend"></div></div>
+<div><div class="card"><h2>Decoded from pointer</h2><div class="imgs">
+<figure><canvas class="px" id="dec" width="8" height="8"></canvas><div id="coords">&nbsp;</div></figure>
+<figure><canvas class="px" id="near" width="8" height="8"></canvas><div id="nearl">nearest test digit</div></figure></div></div>
+<div class="card"><h2>How well does this model use its 2 dimensions?</h2><div id="stat"></div>
+<small>Effective rank = (Σλ)² / Σλ² over the covariance eigenvalues of the test latents: 2 means both dimensions carry information, 1 means the code has collapsed onto a line.</small></div></div></div>
+</main>
+<script>
+const DATA=__DATA__;
+const C=["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"];
+const sel=document.getElementById("model"),plane=document.getElementById("plane"),ctx=plane.getContext("2d");
+DATA.models.forEach((m,i)=>sel.add(new Option(m.name,i)));
+document.getElementById("legend").innerHTML=C.map((c,i)=>`<span><i style="background:${c}"></i>${i}</span>`).join("");
+const relu=x=>x>0?x:0,sig=x=>1/(1+Math.exp(-Math.max(-30,Math.min(30,x))));
+function decode(m,z){let a=z;for(let l=0;l<m.dec.W.length;l++){const W=m.dec.W[l],b=m.dec.b[l],o=new Array(b.length);
+ for(let j=0;j<b.length;j++){let s=b[j];for(let i=0;i<a.length;i++)s+=a[i]*W[i][j];o[j]=m.dec.acts[l]==="relu"?relu(s):m.dec.acts[l]==="sigmoid"?sig(s):s}a=o}return a}
+function imgData(c,v){const im=c.createImageData(8,8);for(let i=0;i<64;i++){const g=Math.round(255*(1-Math.max(0,Math.min(1,v[i]))));im.data[4*i]=im.data[4*i+1]=im.data[4*i+2]=g;im.data[4*i+3]=255}return im}
+function drawImg(cv,v){const c=cv.getContext("2d");c.putImageData(imgData(c,v),0,0)}
+let m,lo,hi,cache,cur=null;
+function pct(a,q){a=a.slice().sort((x,y)=>x-y);return a[Math.floor(q*(a.length-1))]}
+function range(){const Z=m.latents;lo=[0,1].map(d=>pct(Z.map(p=>p[d]),0.01));hi=[0,1].map(d=>pct(Z.map(p=>p[d]),0.99));
+ for(let d=0;d<2;d++){const pad=(hi[d]-lo[d])*0.12+1e-6;lo[d]-=pad;hi[d]+=pad}}
+const toPx=z=>[(z[0]-lo[0])/(hi[0]-lo[0])*plane.width,(1-(z[1]-lo[1])/(hi[1]-lo[1]))*plane.height];
+const toZ=(x,y)=>[lo[0]+x/plane.width*(hi[0]-lo[0]),lo[1]+(1-y/plane.height)*(hi[1]-lo[1])];
+function erank(Z){const n=Z.length,mx=Z.reduce((s,p)=>s+p[0],0)/n,my=Z.reduce((s,p)=>s+p[1],0)/n;let a=0,b=0,c=0;
+ for(const p of Z){const x=p[0]-mx,y=p[1]-my;a+=x*x;b+=x*y;c+=y*y}a/=n-1;b/=n-1;c/=n-1;const t=a+c,d=Math.sqrt(Math.max(0,(a-c)*(a-c)/4+b*b)),l1=t/2+d,l2=t/2-d;return (l1+l2)**2/(l1*l1+l2*l2)}
+function buildManifold(){const n=16,off=document.createElement("canvas");off.width=off.height=8*n;const c=off.getContext("2d");
+ for(let r=0;r<n;r++)for(let q=0;q<n;q++){const z=toZ((q+.5)/n*plane.width,(r+.5)/n*plane.height),t=document.createElement("canvas");t.width=t.height=8;
+  const tc=t.getContext("2d");tc.putImageData(imgData(tc,decode(m,z)),0,0);c.drawImage(t,q*8,r*8)}cache=off}
+function render(){ctx.clearRect(0,0,plane.width,plane.height);const mf=document.getElementById("manifold").checked;
+ if(mf){ctx.imageSmoothingEnabled=false;ctx.drawImage(cache,0,0,plane.width,plane.height)}
+ if(document.getElementById("pts").checked){m.latents.forEach((z,i)=>{const[x,y]=toPx(z);ctx.beginPath();ctx.arc(x,y,6,0,6.283);ctx.fillStyle=C[DATA.labels[i]]+(mf?"cc":"bb");ctx.fill()})}
+ if(cur){const[x,y]=toPx(cur);ctx.strokeStyle="#0b0b0b";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x-18,y);ctx.lineTo(x+18,y);ctx.moveTo(x,y-18);ctx.lineTo(x,y+18);ctx.stroke()}}
+function point(z){cur=z;drawImg(document.getElementById("dec"),decode(m,z));document.getElementById("coords").textContent=`z = (${z[0].toFixed(2)}, ${z[1].toFixed(2)})`;
+ let bi=0,bd=1e18;m.latents.forEach((p,i)=>{const d=(p[0]-z[0])**2+(p[1]-z[1])**2;if(d<bd){bd=d;bi=i}});
+ drawImg(document.getElementById("near"),DATA.images[bi]);document.getElementById("nearl").textContent="nearest test digit: class "+DATA.labels[bi];render()}
+function setModel(){m=DATA.models[+sel.value];range();buildManifold();const r=erank(m.latents),bad=r<1.4;
+ document.getElementById("stat").innerHTML=`Effective rank <b class="${bad?"warn":"ok"}">${r.toFixed(2)}</b> of 2 — ${bad?"the code has nearly collapsed onto a line; most of the plane is unused.":"both latent dimensions carry information."}`;
+ point(toZ(plane.width/2,plane.height/2))}
+function ev(e){const r=plane.getBoundingClientRect(),t=e.touches?e.touches[0]:e;point(toZ((t.clientX-r.left)/r.width*plane.width,(t.clientY-r.top)/r.height*plane.height))}
+plane.addEventListener("mousemove",ev);plane.addEventListener("touchmove",e=>{e.preventDefault();ev(e)},{passive:false});plane.addEventListener("touchstart",ev);
+sel.onchange=setModel;document.getElementById("manifold").onchange=render;document.getElementById("pts").onchange=render;setModel();
+</script></body></html>

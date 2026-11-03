@@ -1,0 +1,57 @@
+[     2s] baselines done
+[    36s] main symmetric  k= 2 probe=0.740 erank=1.93
+[    71s] main symmetric  k= 4 probe=0.852 erank=3.61
+[   111s] main symmetric  k= 8 probe=0.935 erank=5.69
+[   147s] main symmetric  k=16 probe=0.950 erank=9.71
+[   185s] main symmetric  k=32 probe=0.971 erank=13.62
+[   206s] main heavy_enc  k= 2 probe=0.545 erank=1.01
+[   227s] main heavy_enc  k= 4 probe=0.817 erank=1.23
+[   247s] main heavy_enc  k= 8 probe=0.912 erank=3.42
+[   268s] main heavy_enc  k=16 probe=0.958 erank=7.78
+[   290s] main heavy_enc  k=32 probe=0.972 erank=12.23
+[   309s] main heavy_dec  k= 2 probe=0.640 erank=1.93
+[   330s] main heavy_dec  k= 4 probe=0.827 erank=3.64
+[   351s] main heavy_dec  k= 8 probe=0.909 erank=5.81
+[   372s] main heavy_dec  k=16 probe=0.952 erank=9.16
+[   395s] main heavy_dec  k=32 probe=0.968 erank=12.38
+[   398s] main linear_sym k= 2 probe=0.554 erank=1.76
+[   402s] main linear_sym k= 4 probe=0.803 erank=3.22
+[   406s] main linear_sym k= 8 probe=0.903 erank=5.13
+[   411s] main linear_sym k=16 probe=0.954 erank=7.72
+[   418s] main linear_sym k=32 probe=0.968 erank=11.22
+[   454s] denoise symmetric k=8
+[   491s] denoise symmetric k=16
+[   513s] denoise heavy_enc k=8
+[   535s] denoise heavy_enc k=16
+[   557s] denoise heavy_dec k=8
+[   579s] denoise heavy_dec k=16
+[   585s] denoise linear_sym k=8
+[   590s] denoise linear_sym k=16
+[   593s] grid e0d0 k=2
+[   596s] grid e0d0 k=4
+[   599s] grid e0d0 k=8
+[   607s] grid e0d1 k=2
+[   615s] grid e0d1 k=4
+[   623s] grid e0d1 k=8
+[   636s] grid e0d2 k=2
+[   648s] grid e0d2 k=4
+[   660s] grid e0d2 k=8
+[   668s] grid e1d0 k=2
+[   676s] grid e1d0 k=4
+[   685s] grid e1d0 k=8
+[   698s] grid e1d1 k=2
+[   710s] grid e1d1 k=4
+[   723s] grid e1d1 k=8
+[   739s] grid e1d2 k=2
+[   755s] grid e1d2 k=4
+[   771s] grid e1d2 k=8
+[   784s] grid e2d0 k=2
+[   796s] grid e2d0 k=4
+[   808s] grid e2d0 k=8
+[   825s] grid e2d1 k=2
+[   841s] grid e2d1 k=4
+[   858s] grid e2d1 k=8
+[   879s] grid e2d2 k=2
+[   899s] grid e2d2 k=4
+[   920s] grid e2d2 k=8
+[   920s] done

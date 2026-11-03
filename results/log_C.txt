@@ -1,0 +1,21 @@
+[     1s] control symmetric k=2
+[     1s] control symmetric k=4
+[     2s] control symmetric k=8
+[     2s] control symmetric k=16
+[     3s] control symmetric k=32
+[     3s] control heavy_enc k=2
+[     4s] control heavy_enc k=4
+[     4s] control heavy_enc k=8
+[     4s] control heavy_enc k=16
+[     5s] control heavy_enc k=32
+[     5s] control heavy_dec k=2
+[     6s] control heavy_dec k=4
+[     6s] control heavy_dec k=8
+[     7s] control heavy_dec k=16
+[     7s] control heavy_dec k=32
+[     8s] control linear_sym k=2
+[     8s] control linear_sym k=4
+[     8s] control linear_sym k=8
+[     9s] control linear_sym k=16
+[     9s] control linear_sym k=32
+[     9s] done

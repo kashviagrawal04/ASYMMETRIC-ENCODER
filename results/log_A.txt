@@ -1,0 +1,35 @@
+[    22s] diagnose k=2 base                         val_probe=0.540 erank=1.02
+[   101s] diagnose k=2 1000 epochs                  val_probe=0.579 erank=1.05
+[   125s] diagnose k=2 lr 3e-3                      val_probe=0.577 erank=1.11
+[   149s] diagnose k=2 reg 0.01                     val_probe=0.584 erank=1.85
+[   173s] diagnose k=2 reg 0.1                      val_probe=0.530 erank=1.99
+[   196s] diagnose k=2 reg 1.0                      val_probe=0.465 erank=1.99
+[   227s] diagnose k=2 1-layer decoder              val_probe=0.667 erank=1.92
+[   264s] diagnose k=2 2-layer decoder (symmetric)  val_probe=0.689 erank=1.92
+[   285s] diagnose k=4 base                         val_probe=0.785 erank=1.22
+[   364s] diagnose k=4 1000 epochs                  val_probe=0.809 erank=2.09
+[   385s] diagnose k=4 lr 3e-3                      val_probe=0.830 erank=2.47
+[   408s] diagnose k=4 reg 0.01                     val_probe=0.780 erank=3.87
+[   433s] diagnose k=4 reg 0.1                      val_probe=0.752 erank=3.96
+[   457s] diagnose k=4 reg 1.0                      val_probe=0.781 erank=3.97
+[   488s] diagnose k=4 1-layer decoder              val_probe=0.869 erank=3.42
+[   525s] diagnose k=4 2-layer decoder (symmetric)  val_probe=0.869 erank=3.55
+[   525s] selected lambda=0.01 (val probe 0.682)
+[   525s] regularised sweep with lambda=0.01
+[   562s] reg symmetric k=2
+[   601s] reg symmetric k=4
+[   640s] reg symmetric k=8
+[   679s] reg symmetric k=16
+[   702s] reg heavy_enc k=2
+[   725s] reg heavy_enc k=4
+[   748s] reg heavy_enc k=8
+[   770s] reg heavy_enc k=16
+[   793s] reg heavy_dec k=2
+[   817s] reg heavy_dec k=4
+[   840s] reg heavy_dec k=8
+[   865s] reg heavy_dec k=16
+[   870s] reg linear_sym k=2
+[   876s] reg linear_sym k=4
+[   882s] reg linear_sym k=8
+[   889s] reg linear_sym k=16
+[   889s] done
