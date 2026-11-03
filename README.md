@@ -7,7 +7,7 @@ How does the capacity *asymmetry* between an auto-encoder's encoder and decoder 
 This repo is a from-scratch (pure NumPy) study with a depth-grid sweep, a diagnosis of a dimensional-collapse failure,
 a latent regulariser, label-efficiency and robustness evaluation, paired statistics, tests, CI and an interactive demo.
 
-**Streamlit app:** `streamlit run streamlit_app.py` opens an interactive explorer (latent space, train-your-own model, results). An offline single-file version is in `demo/index.html`.
+**Live demo (Streamlit): https://asymmetric-autoencoder.streamlit.app/** — interactive explorer with latent space, train-your-own model and results. Run it locally with `streamlit run streamlit_app.py`. An offline single-file version is in `demo/index.html`.
 
 ## Key findings (sklearn Digits, 5 seeds, a different train/test split per seed)
 
