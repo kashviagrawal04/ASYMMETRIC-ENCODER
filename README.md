@@ -7,7 +7,7 @@ How does the capacity *asymmetry* between an auto-encoder's encoder and decoder 
 This repo is a from-scratch (pure NumPy) study with a depth-grid sweep, a diagnosis of a dimensional-collapse failure,
 a latent regulariser, label-efficiency and robustness evaluation, paired statistics, tests, CI and an interactive demo.
 
-[**Live demo: interactive latent-space explorer →**](https://kashviagrawal04.github.io/ASYMMETRIC-ENCODER/demo/) (move over the 2-D latent plane and the trained decoder, running in your browser, paints the digit; source in `demo/`)
+**Streamlit app:** `streamlit run streamlit_app.py` opens an interactive explorer (latent space, train-your-own model, results). An offline single-file version is in `demo/index.html`.
 
 ## Key findings (sklearn Digits, 5 seeds, a different train/test split per seed)
 
@@ -49,7 +49,7 @@ latent effective rank, reconstruction MSE, and probe accuracy on shifted / rotat
 ## Reproduce
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 python -m pytest -q                       # 18 tests
 make experiments                          # ~15 min on 2 cores (stages: main, denoise, grid, diagnose, reg, control)
 python experiments/make_figures.py        # figures + summary / statistics CSVs
